@@ -1,0 +1,38 @@
+
+
+.container{
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.section-nav li{
+	display: inline;
+	list-style: none;
+	padding-right: 20px;
+}
+
+.article-image{
+	float: left;
+	}
+
+.article-content{
+	float: right;
+}
+
+.articles li{
+	list-style: none;
+}
+
+.section-nav li:hover{
+	color: blue;
+	font-size: 1.1em;
+	font-family: "Whitney SSm A","Whitney SSm B",sans-serif;
+	font-weight: bold;
+	color: rgba(0,0,0,0.9);
+}
+
+
+.featurette-image{
+	width: 150px;
+	height: 150px;
+}

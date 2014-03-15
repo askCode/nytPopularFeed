@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>NYT Popular Articles (bootstrap)		</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+		<link href="styles.css" rel="stylesheet">
+	</head>
+
+	<body>
+
+		<div class="container">
+
+			<div class="col-md-12">
+				<div class="header">
+					<p class="all title">NEW YORK TIMES: 
+						<small>The most read articles from NYTimes.com</small>	
+					</p>
+					<ul class="nav">
+						<li class="us" onclick="getArticles('us')">U.S.</li>
+						<li class="world" onclick="getArticles('world')">World</li>
+						<li class="science" onclick="getArticles('science')">Science</li>
+						<li class="technology" onclick="getArticles('technology')">Technology</li>
+						<li class="arts" onclick="getArticles('arts')">Arts</li>
+						<li class="health" onclick="getArticles('health')">Health</li>
+						<li class="style" onclick="getArticles('style')">Style</li>
+						<li class="Travel" onclick="getArticles('travel')">Travel</li>
+						<li class="movies" onclick="getArticles('movies')">Movies</li>
+						<li class="magazine" onclick="getArticles('magazine')">Magazine</li>
+						<li class="opinion" onclick="getArticles('opinion')">Opinion</li>
+						<li class="" onclick="getArticles('')"></li>
+						<li class="" onclick="getArticles('')"></li>
+						<li class="" onclick="getArticles('')"></li>
+					</ul>
+				</div>
+			</div>
+		</div> <!-- Navigation ends -->
+
+		<!-- Carousel code to be added here -->
+
+		<!-- <div class="container">
+			<div class="article-container">
+				<div class="col-md-8">
+					<div class="article">
+						<div class="section">Science</div>
+						<div class="title"><h1>What was your cat thinking?</h1></div>
+						<div class="byline">Author | Date </div>
+						<div class="abstract">What's the meaning of that dead rodent in the house? This guide to our feline friends unravels the mysteries.</div>
+						<div class="share">
+							<ul class="share">
+								<li> <i class="fa fa-google-plus-square"></i> google+ </li>
+								<li> <i class="fa fa-tumblr-square"></i> tumblr </li>
+								<li> <i class="fa fa-twitter-square"></i> twitter </li>
+							</ul>
+						</div>
+					</div>
+				</div>	
+				<div class="col-md-4">
+					<div class="article-image">
+						<div class="image"><img src="http://graphics8.nytimes.com/images/2014/01/07/science/07SCIB/07SCIB-mediumThreeByTwo210-v2.jpg"/>
+						<p class="photo-by"><small>Photo: Patricia Wall/The New York Times</small> </p>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div> --> <!-- Article content ends-->
+
+		<div class="container">
+		
+			<div class="article-container">
+			<script id="feed-template" type="text/x-handlbars-template">
+				{{#each this}}
+					<div class="col-md-8">
+						<div class="article">
+							<div class="section">{{section}}</div>
+							<div class="title"><a href="{{url}}"><h1>{{title}}</h1></a></div>
+							<div class="byline">{{byline}} | {{datePublished}} </div>
+							<div class="abstract">{{abstract}}</div>
+							<div class="share">
+								<ul class="share">
+									<li> <i class="fa fa-google-plus-square"></i> google+ </li>
+									<li> <i class="fa fa-tumblr-square"></i> tumblr </li>
+									<li> <i class="fa fa-twitter-square"></i> twitter </li>
+								</ul>
+							</div>
+						</div>
+					</div>	
+					<div class="col-md-4">
+						<div class="article-image">
+							
+							{{#if this.thumbnailLarge}}
+							<div class="image"><img src="{{thumbnailLarge}}" alt="thumbnail large"/>
+							{{else}}
+							 	{{#if this.thumbnailStandard}}
+								<div class="image"><img src="{{thumbnailStandard}}" alt="thumbnailStandard"/>
+							{{else}}
+							<div class="image"><img src="" alt="no photo"/>
+							{{/if}}{{/if}}
+							<p class="photo-by"><small>Photo: Patricia Wall/The New York Times</small> </p>
+							</div>
+						</div>
+					</div>
+				{{/each}}
+			</script>
+			</div>	
+
+		</div>
+
+		<div class="more-wrapper">
+			<div class="container">
+				<div class="col-md-12">
+					<div class="more-btn btn-success btn" onclick="">
+						<i class="fa fa-refresh"></i> Load More..
+					</div>
+					<div class="loading-more" style="display: none;">
+						<i class="fa fa-spinner"></i> Checking for more articles...
+					</div>
+					<div class="top-btn btn btn-primary">
+						<i class="fa fa-arrow-circle-up"></i> Top
+					</div>
+				</div>
+			</div>
+		</div> <!-- Load More wrapper ends -->
+
+		<div class="footer">
+			<div class="container">
+				<div class="col-md-12">
+					<a href="http://twitter.com/amusalgavkar" target="_blank"><i class="fa fa-twitter-square"></i> Developed by Ajit Musalgavkar</a>
+					<p> Data provided by: </br><a href="http://developer.nytimes.com"><img src="NYTDevLogo1.png" alt"NYT Dev Logo"/></a> </p>
+				</div>
+			</div>
+		</div> <!-- Footer ends -->
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<!-- <script src="../jquery-1.10.2.js"></script> -->
+		<script src="js/bootstrap.min.js"></script>
+		<script src="handlebars-v1.1.2.js"> </script>
+		<script src="app-bootstrap.js"></script>
+	</body>
+
+</html>

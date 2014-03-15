@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>New York Times - Article Feed</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="style.css">
+	</head>
+
+	<body>
+
+		<!-- <h2>Templating Tool Used: <a href="http://handlebarsjs.com">Handlebars JS</a></h2> -->
+
+		<div class="container">
+
+			<div class="title"> New York Times: <span>Most Viewed Articles</span></div>
+			<div class="section-nav">
+				<ul>
+					<li class="us" onclick="goto('us')">US News</li>
+					<li class="world" onclick="goto('world')">World News</li>
+					<li class="technology" onclick="goto('technology')">Technology</li>
+					<li class="arts" onclick="goto('arts')">Arts</li>
+				</ul>
+			</div>
+
+			<div class="articles">
+				<ul class="article">
+					<script id="feed-template" type="text/x-handlbars-template">
+						{{#each this}}
+							<li class="article-single">
+								<a href="{{url}}"><img class="article-image" src="{{thumbnailStandard}}" alt="{{section}}"></a>
+								<div class="article-content">
+									<div class="article-headline"><a href="{{url}}">{{title}}</a></div>
+									<p class="article-info">{{byline}} || {{section}}</p>
+									<div class="article-abstract">{{abstract}}</div>
+								</div>
+							</li>
+						{{/each}}
+					</script>
+				</ul>
+			</div>		
+
+			<div class="footer">New York Time Popular Feed</div>
+		</div>
+		
+
+		<script src="handlebars-v1.1.2.js"> </script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		 <!-- <script src="../jquery-1.10.2.js"></script> -->
+
+		<script>
+			/*var getNav = $	('.section-nav ul li').on('click', function(){
+				return $('.section-nav ul li').attr('class');
+			});*/
+			/*console.log(getNav);*/
+			var template = $('#feed-template').html();
+			function goto(e){
+				var e = e.toLowerCase();
+				$('.article').empty();
+				var nytFeed = {
+					initialize: function(config){
+						this.url = "http://api.nytimes.com/svc/mostpopular/v2/mostviewed/" + e + "/30.jsonp?" + "&api-key=f198d1f8e610958c91c24a0d2ae8403c:19:68603512";
+						//this.url='http://api.nytimes.com/svc/mostpopular/v2/mostviewed/1.jsonp?offset="+20+"&api-key=f198d1f8e610958c91c24a0d2ae8403c:19:68603512';
+						//this.url='http://api.espn.com/v1/sports/news/headlines/top?limit=9&apikey=n39jrj4s97tvhxym4qgacnrd&callback=?';
+						//console.log('API called')
+						this.template = config.template;
+						this.container = config.container;
+						this.fetch();
+
+					},
+
+					attachTemplate: function(){
+						var template = Handlebars.compile(this.template);
+						var articles = template(this.nytFeed);
+						this.container.append(articles);
+					},
+
+					fetch: function(){
+
+						var self = this;
+
+						$.ajax({
+							contentType: "application/jsonp",
+							type: "GET",
+							url: this.url,
+							dataType: "jsonp",
+							success: function(data){
+								var results = data.results;
+								console.log(results);
+								self.nytFeed = $.map(results, function(article){
+									return {
+										abstract: article['abstract'],
+										byline: article['byline'],
+										title: article['title'],
+										section: article['section'],
+										url: article['url'],
+										datePublished: article['published_date'],
+										thumbnailStandard: article.media ? article.media[0]['media-metadata'][0]['url'] : '' //need to add code to get all the pics if present
+									};
+								});
+								console.log(self.nytFeed);
+								self.attachTemplate();
+							},
+							error: function(error){
+								console.log('error: ', error);
+							}
+						})
+						.fail(function(error){
+							console.log('error: ', error);
+						});
+					}
+				};
+
+				nytFeed.initialize({
+					template: template,
+					container: $('ul.article'),
+					section: $
+				});
+			};
+			
+		</script>
+	</body>
+</html> 
